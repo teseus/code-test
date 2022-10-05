@@ -1,4 +1,4 @@
-package com.teseus.codetest;
+package com.teseus.codetest.programmers;
 
 import org.junit.Assert;
 import org.junit.Test;
