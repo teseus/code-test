@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// 일단 생각 나는데로 작성했다.
+// 그런데, 다른 사람의 정답을 보니, stream 으로만 했음.
+
 public class BestAlbum {
     class Solution {
         class Entity implements Comparable<Entity> {
