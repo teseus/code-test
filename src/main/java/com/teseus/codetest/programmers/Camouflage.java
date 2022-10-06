@@ -4,48 +4,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 // 생각 나는데로 풀어서 바로 맞추었으나 stream 을 쓰는 더 좋은 코드가 있음.
+// 참고하여 더 개선을 하였음.
+// stream groupby counting 기능으로 편하게 할 수 있음.
 
 public class Camouflage {
     class Solution {
-        class Cloth {
-            private String Name;
-            private String Type;
-
-            public Cloth(String name, String type) {
-                Name = name;
-                Type = type;
-            }
-        }
         public int solution(String[][] clothes) {
-            if(clothes.length == 0) {
-                return 0;
-            }
-            // 타잎 그룹으로 만든다.
-            Map<String, List<Cloth>> group =
-                    Arrays.stream(clothes).map(it -> new Cloth(it[0], it[1])).collect(Collectors.groupingBy(it -> it.Type));
-
-            if(group.size() == 1) {
-                return clothes.length;
-            }
-
-            int i = 0;
-
-            int[] typeNums = new int[group.size()];
-            for (List<Cloth> value : group.values()) {
-                typeNums[i++] = value.size() + 1;
-            }
-
-            int sum = 1;
-            for (int j = 0; j < typeNums.length; j++) {
-                sum *= typeNums[j];
-            }
-
-            return sum-1;
+            return Arrays.stream(clothes)
+                    .collect(groupingBy(p -> p[1],counting()))
+                    .values()
+                    .stream().reduce(1L, (x, y) -> x * (y + 1)).intValue() - 1;
         }
     }
 
