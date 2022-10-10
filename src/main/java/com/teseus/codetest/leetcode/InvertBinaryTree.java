@@ -1,6 +1,5 @@
 package com.teseus.codetest.leetcode;
 
-import com.teseus.codetest.leetcode.common.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
 
