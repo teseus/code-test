@@ -21,7 +21,7 @@ public class Tiredness {
         }
         public void dfs(int tired, int[][] dungeons, int cnt){
             System.out.println("allcount = " + (++allCount));
-            System.out.println("tired = " + tired + ", dungeons = " + Arrays.toString(check) + ", cnt = " + cnt);
+            System.out.println("tired = " + tired + ", dungeons = " + Arrays.deepToString(dungeons) + ", cnt = " + cnt);
             for(int i=0; i<dungeons.length; i++){
                 if(!check[i] && dungeons[i][0]<=tired){
                     check[i] = true;
@@ -35,15 +35,13 @@ public class Tiredness {
 
     @Test
     public void test1(){
-        //given
-        Solution solution = new Solution();
         //when
         int[][] arg = {{80,20},{50,40},{30,10}};
-        int result = solution.solution(80, arg);
+        int result = new Solution().solution(80, arg);
         //then
         Assert.assertEquals(3, result);
         int[][] arg1 = {{80,20},{60,50},{60,10},{50,40},{50,10},{40,30}};
-        int result1 = solution.solution(80, arg1);
+        int result1 = new Solution().solution(80, arg1);
         //then
         Assert.assertEquals(4, result1);
     }
