@@ -9,34 +9,24 @@ import org.junit.Test;
 //            }
 // 에서 return 을 빼먹어서 실수했다.
 
+// solution 에서는 알파벳의 아스키 분포가 65~122 라 아예 128개의 int 배열을 버퍼로 생성하고
+// 주어진 문자열 s.toCharArray() 로 아키키 코드값의 배열을 만든다음에 이 값을 버퍼의 인수로 삼아 ++ 증가 시킨다.
+// 최종적으로 /2 *2 한후 버퍼를 전체 순회하면서 값을 모두 더하고 이때 이값이 짝수이면서 원래의 값이 홀수면 하나더하고 아니면 /2 *2 한 값을 리턴한다.
+
 public class LongestPalindrome {
     class Solution {
         public int longestPalindrome(String s) {
-            if(s.length() == 1) {
-                return 1;
+            int[] count = new int[128];
+            for (char c: s.toCharArray())
+                count[c]++;
+
+            int ans = 0;
+            for (int v: count) {
+                ans += v / 2 * 2;
+                if (ans % 2 == 0 && v % 2 == 1)
+                    ans++;
             }
-            // check 배열 똑같이
-            String copy = new String(s);
-            int count = 0;
-            // 2중 for
-            for (int i = 0; i < s.length()-1 && copy.length() > 1; i++) {
-                char c = s.charAt(i);
-                int found = copy.indexOf(c);
-                if (found >= 0) {
-                    int found2 = copy.indexOf(c, found + 1);
-                    if (found2 >= 0 && (copy.charAt(found) == copy.charAt(found2))) {
-                        count++;
-                        copy = copy.substring(0, found) +
-                                copy.substring(found + 1, found2) +
-                                copy.substring(found2 + 1);
-                        System.out.println("restruct:" + copy);
-                    }
-                }
-            }
-            if(count*2 == s.length()) {
-                return s.length();
-            }
-            return count*2+1;
+            return ans;
         }
     }
 
