@@ -5,7 +5,7 @@ import org.junit.Test;
 
 // 일단 생각 나는데로 작성했다. 그런데 틀렸다.
 // 틀린 이유는 sum 의 크기 때문에 매번 sum 을 낼때마다 1234567로 나눠줘야 했다.
-// 다 계산하고 나눈것이랑 매번 나머지를 더한 것이랑 같다.
+// 피보나치를 모두 sum 하고 %(modula) 연산하는 것이랑  각 스텝에서 %(modula) 연산하는 것이랑 차이가 나지 않는다는 것이 핵심이다.
 
 public class Fibonacci {
     class Solution {
