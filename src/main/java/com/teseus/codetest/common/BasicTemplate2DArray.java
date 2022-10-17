@@ -13,11 +13,8 @@ public class BasicTemplate2DArray {
 
     @Test
     public void test1(){
-        //given
-        Solution solution = new Solution();
         //when
-        int[][] arg = {{1, 2}, {3, 4}};
-        int result = solution.solution(arg);
+        int result = new Solution().solution(new int[][]{{1, 2}, {3, 4}});
         //then
         Assert.assertEquals(0, result);
     }
