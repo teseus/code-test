@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 // 일단 생각 나는데로 작성했다. 그런데 틀렸다.
+// 틀린 이유는 sum 의 크기 때문에 매번 sum 을 낼때마다 1234567로 나눠줘야 했다.
+// 다 계산하고 나눈것이랑 매번 나머지를 더한 것이랑 같다.
 
 public class Fibonacci {
     class Solution {
@@ -15,7 +17,7 @@ public class Fibonacci {
             int sum1 = 1;
             int sum = 0;
             for (int i = 2; i <= n; i++) {
-                sum = sum0 + sum1;
+                sum = (sum0 + sum1) % 1234567;
                 sum0 = sum1;
                 sum1 = sum;
             }
@@ -25,6 +27,10 @@ public class Fibonacci {
 
     @Test
     public void test1(){
+        //when
+        int result7 = new Solution().solution(50);
+        //then
+        Assert.assertEquals(1093027, result7);
         //when
         int result6 = new Solution().solution(2);
         //then
