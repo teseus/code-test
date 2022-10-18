@@ -5,32 +5,30 @@ import org.junit.Test;
 
 // 처음은 생각 나는데로 작성했고,  동작은 제대로 했지만, 퍼포먼스가 낮아서 fail
 // 에러가 나서 두번째로 공백문자들을 하나로 줄이는 코드를 넣어 보았다. 그러나 fail
+// 다른 사람의 답을 보았다. 모든 문자를 나누고, 처음 시작과 " " 스페이스가 있다면 다음은 대문자로 변경해서 처리했다.
+// 결과적으로 같을 텐데, 왜 내가 한 것은 에러가 났을까?
 
 public class JadenCase {
     class Solution {
         public String solution(String s) {
-            s = s.replaceAll("\\s+", " ");
-            String[] splits = s.split("\\s");
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < splits.length; i++) {
-                if(splits[i].matches("^[a-z].*")) {
-                    sb.append((char) (splits[i].charAt(0) - 32));
-                } else {
-                    sb.append(splits[i].charAt(0));
-                }
-                sb.append(splits[i].substring(1).toLowerCase());
-                if(i < splits.length-1){
-                    sb.append(" ");
-                }
+            System.out.println(s);
+            String answer = "";
+            String[] sp = s.toLowerCase().split("");
+            boolean flag = true;
+
+            for(String ss : sp) {
+                answer += flag ? ss.toUpperCase() : ss;
+                flag = ss.equals(" ") ? true : false;
             }
-            return sb.toString();
+
+            return answer;
         }
     }
 
     @Test
     public void test1(){
         //when
-        String result1 = new Solution().solution("for     thE lasT weeK");
+        String result1 = new Solution().solution("for thE lasT weeK");
         //then
         Assert.assertEquals("For The Last Week", result1);
         //when
