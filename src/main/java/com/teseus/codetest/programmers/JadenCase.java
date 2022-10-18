@@ -4,10 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 // 처음은 생각 나는데로 작성했고,  동작은 제대로 했지만, 퍼포먼스가 낮아서 fail
+// 에러가 나서 두번째로 공백문자들을 하나로 줄이는 코드를 넣어 보았다. 그러나 fail
 
 public class JadenCase {
     class Solution {
         public String solution(String s) {
+            s = s.replaceAll("\\s+", " ");
             String[] splits = s.split("\\s");
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < splits.length; i++) {
@@ -28,7 +30,7 @@ public class JadenCase {
     @Test
     public void test1(){
         //when
-        String result1 = new Solution().solution("for thE lasT weeK");
+        String result1 = new Solution().solution("for     thE lasT weeK");
         //then
         Assert.assertEquals("For The Last Week", result1);
         //when
