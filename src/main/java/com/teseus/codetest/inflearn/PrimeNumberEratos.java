@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Scanner;
 
 // 직관적으로 프라임 넘버를 2중 for 문으로 처리했느나, 시간이 초과됨.
+// 해설을 보고 Eratos 방법으로 풀어서 성공.
 
 public class PrimeNumberEratos {
     static class Solution {
@@ -14,21 +15,17 @@ public class PrimeNumberEratos {
             if(n<2) {
                 return 0;
             }
+            int[] checks = new int[n+1];
             for (int i = 2; i <= n; i++) {
-                if(isPrime(i)) {
+                if(checks[i] == 0) {
                     count++;
+                    for (int j = i; j <= n; j+=i) {
+                        checks[j] = 1;
+                    }
+//                    System.out.println("prime i = " + i);
                 }
             }
             return count;
-        }
-
-        private boolean isPrime(int num) {
-            for (int i = 2; i < num; i++) {
-                if(num%i == 0){
-                    return false;
-                }
-            }
-            return true;
         }
     }
 
