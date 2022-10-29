@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.Scanner;
 
+// 그냥 생각나는 데로 풀었고 성공
+
 public class ReverseCertainCharacters {
     static class Solution {
         public String solution(String str) {
