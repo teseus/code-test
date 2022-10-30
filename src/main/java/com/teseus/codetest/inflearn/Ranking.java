@@ -3,43 +3,23 @@ package com.teseus.codetest.inflearn;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 // 직관적으로 풀다 이렇게 하는게 맞는가? 하는 생각이 들었다. 일단 임시 저장
 // 클래스를 만들어서 점수와, 인덱스를 넣는 방향으로 선회 해서 성공
+// 정답을 보니 내 생각과는 완전히 다른 알고리즘으로 풀었다. 허탈했다. 결국은 아이디어의 싸움이라고 느껴진다.
 
 public class Ranking {
     static class Solution {
-        static class Rank {
-            int point;
-            int index;
-
-            public Rank(int point, int index) {
-                this.point = point;
-                this.index = index;
-            }
-        }
-
         public int[] solution(int[] n) {
-            List<Rank> ranks = new ArrayList<>();
-            for (int i = 0; i < n.length; i++) {
-                ranks.add(new Rank(n[i], i));
-            }
-            List<Rank> sorted = ranks.stream().sorted((a,b)->Integer.compare(b.point, a.point)).collect(Collectors.toList());
-//            System.out.println("sorted = " + sorted);
             int[] ordered = new int[n.length];
-            int count = 1;
-            ordered[sorted.get(0).index] = count;
-            for (int i = 1; i < sorted.size(); i++) {
-                if(sorted.get(i-1).point != sorted.get(i).point) {
-                    count = i+1;
+            for (int i = 0; i < n.length; i++) {
+                int cnt = 1;
+                for (int j = 0; j < n.length; j++) {
+                    if(n[j]>n[i]) cnt++;
                 }
-                ordered[sorted.get(i).index] = count;
+                ordered[i] = cnt;
             }
-//            System.out.println("ordered = " + Arrays.toString(ordered));
             return ordered;
         }
     }
