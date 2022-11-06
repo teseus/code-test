@@ -14,8 +14,8 @@ public class Template {
 
     public static void main(String[] args){
         Scanner in=new Scanner(System.in);
-        int input1 = in.nextInt();
-        int[] nums = new int[input1];
+        int len = in.nextInt();
+        int[] nums = new int[len];
         int count = new Solution().solution(nums);
         System.out.println(count);
     }
