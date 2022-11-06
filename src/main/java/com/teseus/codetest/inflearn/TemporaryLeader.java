@@ -3,13 +3,32 @@ package com.teseus.codetest.inflearn;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 // 직관적으로 풀었으나 fail 이 난다. 문제를 잘못이해한 건지.. 알 수없다. 분명히 4번학생이 3명 중복인데.. 3번 학생이라네.. 알수없다.
-
+// 4번학생으이 5번학생과 4학년 5학년 모두 같은 반이라서 한번만 계수되어야 함으로 3번이 맞다. ㅠ.ㅠ
 public class TemporaryLeader {
     static class Solution {
+        public int solution2(int n, int[][] arr) {
+            int answer=0, max=-1;
+            for (int i = 0; i < n; i++) {
+                int cnt=0;
+                for (int j = 0; j < n; j++) {
+                    for (int k = 0; k < 5; k++) {
+                        if(arr[i][k]==arr[j][k]){
+                            cnt++;
+//                            System.out.println("i = " + i + ", j = " + j + ", k = " + k + ", cnt = " + cnt );
+                            break;
+                        }
+                    }
+                }
+                if(cnt>max) {
+                    max=cnt;
+                    answer=i+1;
+                }
+            }
+            return answer;
+        }
         public int solution(int[][] matrix) {
             int len = matrix.length;
             int[][] counts = new int[len][5];
@@ -22,7 +41,7 @@ public class TemporaryLeader {
                     }
                 }
             }
-            System.out.println("counts = " + Arrays.deepToString(counts));
+//            System.out.println("counts = " + Arrays.deepToString(counts));
             int max = 0;
             int maxIdx = -1;
             for (int y = 0; y < len; y++) {
@@ -30,11 +49,11 @@ public class TemporaryLeader {
                 for (int x = 0; x < len; x++) {
                     count += counts[y][x];
                 }
-                System.out.println(y + ":count = " + count);
+//                System.out.println(y + ":count = " + count);
                 if(count> max) {
                     max = count;
                     maxIdx = y;
-                    System.out.println("maxIdx = " + maxIdx);
+//                    System.out.println("maxIdx = " + maxIdx);
                 }
             }
             return maxIdx+1;
@@ -51,7 +70,7 @@ public class TemporaryLeader {
             }
         }
 
-        int count = new Solution().solution(matrix);
+        int count = new Solution().solution2(dimension, matrix);
         System.out.println(count);
     }
 
@@ -66,7 +85,7 @@ public class TemporaryLeader {
                 {6, 2, 8, 4, 2},
         };
         //when
-        int result2 = new Solution().solution(matrix2);
+        int result2 = new Solution().solution2(matrix2.length, matrix2);
         //then
         Assert.assertEquals(3, result2);
 
