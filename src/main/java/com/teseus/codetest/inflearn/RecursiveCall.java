@@ -1,27 +1,22 @@
 package com.teseus.codetest.inflearn;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 //일단 직관적으로 풀었다.
+//2차는 풀이를 보고 따라 짜보았다. 재귀함수를 통해 뒤집는방법이다. 일단 재귀 호출하고, 끝에 오면 리턴, 재귀 함수 호출에서 리턴되면 그때 출력의 구조이다.
 
 public class RecursiveCall {
     static class Solution {
-        public List<Integer> solution(int n) {
-            return dfs(new ArrayList<>(1), n);
+        public void solution(int n) {
+            dfs(n);
         }
 
-        private List<Integer> dfs(List<Integer> list, int end) {
-            list.add(list.size()+1);
-            if(list.size() != end){
-                dfs(list, end);
+        private void dfs(int n) {
+            if( n == 0 ) {
+                return;
             }
-            return list;
+            dfs(n-1);
+            System.out.print(n + " ");
         }
 
     }
@@ -29,15 +24,6 @@ public class RecursiveCall {
     public static void main(String[] args){
         Scanner in=new Scanner(System.in);
         int len = in.nextInt();
-        List<Integer> results = new Solution().solution(len);
-        results.stream().forEach(it-> System.out.print(it + " "));
-    }
-
-    @Test
-    public void test1(){
-        //when
-        List<Integer> result = new Solution().solution(6);
-        //then
-        Assert.assertEquals(Arrays.asList(1,2,3,4,5,6), result);
+        new Solution().solution(len);
     }
 }
