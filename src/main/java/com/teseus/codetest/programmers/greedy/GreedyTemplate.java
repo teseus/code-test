@@ -1,4 +1,4 @@
-package com.teseus.codetest.programmers;
+package com.teseus.codetest.programmers.greedy;
 
 import org.junit.Assert;
 import org.junit.Test;
