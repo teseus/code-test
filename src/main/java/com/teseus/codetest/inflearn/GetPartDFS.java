@@ -1,44 +1,55 @@
 package com.teseus.codetest.inflearn;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-// 설명을 듣고 풀었다. 하는 방식을 외어야 겠다.
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 
 public class GetPartDFS {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
     static class Solution {
-        private int l = 0;
-        private boolean[] checks;
-        public void solution(int n) {
-            l = n;
-            checks = new boolean[n+1];
-            dfs(1);
+        public int solution(int n) {
+            return 0;
         }
+    }
 
-        private void dfs(int n) {
-            if(n == l+1) {
-                for (int i = 1; i <= l; i++) {
-                    if(checks[i]) {
-                        System.out.print(i + " ");
-                    }
-                }
-                System.out.println("");
-            } else {
-                checks[n] = true;
-                dfs(n+1);
-                checks[n] = false;
-                dfs(n+1);
-            }
-        }
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 
     @Test
     public void test1(){
-        Solution solution = new Solution();
-        solution.solution(3);
+        //when
+        int result = new Solution().solution(3);
+        //then
+        assertEquals(Arrays.asList(1,2,4,5,3,6,7), result);
+    }
 
-        System.out.println("========");
+    @Test
+    public void out() {
+        System.out.print("hello");
+        assertEquals("hello", outContent.toString());
+    }
 
-        Solution solution1 = new Solution();
-        solution1.solution(4);
+    @Test
+    public void err() {
+        System.err.print("hello again");
+        assertEquals("hello again", errContent.toString());
     }
 }
