@@ -1,4 +1,4 @@
-package com.teseus.codetest.inflearn;
+package com.teseus.codetest.inflearn.template;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
-public class Template {
+public class TemplateOutputStream {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
