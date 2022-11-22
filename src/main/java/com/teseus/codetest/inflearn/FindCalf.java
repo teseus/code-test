@@ -3,46 +3,36 @@ package com.teseus.codetest.inflearn;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 // 이론을 듣고 직접 구현하여 성공
+// 정답 처럼 step 을 배열로 바꾸고, check 를 set 이 아니라 배열로 변경, 문제의 조건은 1 <= x <= 10000 임으로.
 
 public class FindCalf {
     static class Solution {
-        private int lookingFor;
-
-        int bfs(int root) {
+        int bfs(int root, int lookingFor) {
             Queue<Integer> queue = new LinkedList<>();
-            Set<Integer> checks = new HashSet<>();
+            int[] checks = new int[10001];
             queue.offer(root);
-            checks.add(root);
+            checks[root] = 1;
+            int[] steps = {1, -1, 5};
             int level = 0;
             while(!queue.isEmpty()) {
                 int len = queue.size();
                 System.out.print(level + ": ");
                 for (int i = 0; i < len; i++) {
                     int val = queue.poll();
-                    if(val == lookingFor) {
-                        return level;
-                    }
                     System.out.print(val + " ");
-                    int one = val + 1;
-                    if(!checks.contains(one)) {
-                        queue.offer(one);
-                        checks.add(one);
-                    }
-                    int two = val - 1;
-                    if(!checks.contains(two)) {
-                        queue.offer(two);
-                        checks.add(two);
-                    }
-                    int three = val + 5;
-                    if(!checks.contains(three)) {
-                        queue.offer(three);
-                        checks.add(three);
+                    for (int j = 0; j < steps.length; j++) {
+                        int one = val + steps[j];
+                        if(one == lookingFor) {
+                            return level+1;
+                        }
+                        if(one > 1 && one <= 10000 && checks[one] == 0 ) {
+                            queue.offer(one);
+                            checks[one] = 1;
+                        }
                     }
                 }
                 level++;
@@ -51,9 +41,8 @@ public class FindCalf {
             throw new IllegalStateException();
         }
 
-        public int solution(int pos1, int pos2) {
-            lookingFor = pos2;
-            return bfs(pos1);
+        public int solution(int start, int end) {
+            return bfs(start, end);
         }
     }
 
