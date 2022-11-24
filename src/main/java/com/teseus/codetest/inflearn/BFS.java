@@ -1,12 +1,15 @@
 package com.teseus.codetest.inflearn;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+// 1차로 풀어본다 풀이는 보지 않았고 설명만 들어봤다
+
 public class BFS {
-    class Node {
+    static class Node {
         int data;
         Node left, right;
         Node(int data) {
@@ -15,29 +18,23 @@ public class BFS {
         }
     }
     static class Solution {
-
-        Node root;
-
-        void bfs(Node root) {
-            Queue<Node> queue = new LinkedList<>();
-            queue.offer(root);
+        int bfs(Node node) {
             int level = 0;
+            Queue<Node> queue = new LinkedList<>();
+            queue.offer(node);
             while(!queue.isEmpty()) {
                 int len = queue.size();
-                System.out.print(level + ": ");
                 for (int i = 0; i < len; i++) {
-                    Node node = queue.poll();
-                    System.out.print(node.data + " ");
-                    if(node.left != null) {
-                        queue.offer(node.left);
+                    Node poped = queue.poll();
+                    if(poped.left == null && poped.right == null) {
+                        return level;
                     }
-                    if(node.right != null) {
-                        queue.offer(node.right);
-                    }
+                    if(poped.left!=null) queue.offer(poped.left);
+                    if(poped.right!=null) queue.offer(poped.right);
                 }
-                level++;
-                System.out.println(" ");
+                level ++;
             }
+            throw new IllegalArgumentException();
         }
     }
 
@@ -50,11 +47,16 @@ public class BFS {
         root.right = new Node(3);
         root.left.left = new Node(4);
         root.left.right = new Node(5);
-        root.right.left = new Node(6);
-        root.right.right = new Node(7);
-
-        solution.bfs(root);
-        //when
-        //then
+        //when:
+        int result = solution.bfs(root);
+        //then:
+        Assert.assertEquals(1, result);
+        //give:
+        root.right.left = new Node(4);
+        root.right.right = new Node(5);
+        //when:
+        int result1 = solution.bfs(root);
+        //then:
+        Assert.assertEquals(2, result1);
     }
 }
