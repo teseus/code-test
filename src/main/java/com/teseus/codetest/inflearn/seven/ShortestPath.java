@@ -13,7 +13,7 @@
         private int [] distances;
 
         public void solution(int nodeCount, int edgeCount, int[][] matrix) {
-            distances = new int[edgeCount+1];
+            distances = new int[nodeCount+1];
             check = new int[nodeCount+1];
             graph = new ArrayList<>();
             for (int i = 0; i <= nodeCount; i++) {
@@ -26,22 +26,25 @@
             graph.forEach(it -> System.out.println(Arrays.toString(it.toArray())));
             check[1] = 1;
             distances[1] = 0;
-            bfs(Arrays.asList(1), 0);
+            bfs(1);
+            for (int i = 2; i <= nodeCount; i++) {
+                System.out.println(i + " : " + distances[i]);
+            }
         }
 
-        private void bfs(List<Integer> lists, int level) {
-            if(lists.isEmpty()) return;
-            List<Integer> chilren = new ArrayList<>();
-            for (Integer list : lists) {
-                if(check[list] == 0) {
-                    check[list] = 1;
-                    for (Integer one : graph.get(list)) {
-                        System.out.println(list + " : " + one);
+        private void bfs(int start) {
+            Queue<Integer> queue = new LinkedList<>();
+            queue.offer(start);
+            while(!queue.isEmpty()) {
+                Integer node = queue.poll();
+                for (Integer subNode : graph.get(node)) {
+                    if(check[subNode] == 0) {
+                        check[subNode] = 1;
+                        queue.offer(subNode);
+                        distances[subNode] = distances[node] + 1;
                     }
-                    chilren.addAll(graph.get(list));
                 }
             }
-            bfs(chilren, level+1);
         }
     }
 
