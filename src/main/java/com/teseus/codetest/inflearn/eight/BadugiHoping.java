@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Scanner;
 
 // dfs graph (포함, 안포함) 이진트리를 써서 직관적으로 해결했다.
+// 에러가났다. 처음 것을 무조건 포함하는 로직으로 만들었다. 그래서 배열을 n+1 로 잡고,0번째 배열에 0을 넣고 진행시켜서 성공했다.
 
 public class BadugiHoping {
     static class Solution {
@@ -31,24 +32,30 @@ public class BadugiHoping {
 
     }
 
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int weight = in.nextInt();
+        int len = in.nextInt();
+        int[] nums = new int[len+1];
+        for (int i = 1; i <= len; i++) {
+            nums[i] = in.nextInt();
+        }
+        int ret = new Solution().solution(nums, weight);
+        System.out.println(ret);
+    }
+
     @Test
     public void test1() {
+        //when
+        int result1 = new Solution().solution(
+                new int[]{0, 2757, 5674, 9996, 2346, 4673, 5673, 1236, 4734, 754, 4534, 3563, 1}, 10000);
+        //then
+        Assert.assertEquals(9997, result1);
         //when
         int result = new Solution().solution(
                 new int[]{81, 58, 42, 33, 61}, 259);
         //then
         Assert.assertEquals(242, result);
-    }
-
-    public static void main(String[] args){
-        Scanner in=new Scanner(System.in);
-        int len = in.nextInt();
-        int[] nums = new int[len];
-        for (int i = 0; i < len; i++) {
-            nums[i] = in.nextInt();
-        }
-        int ret = new Solution().solution(nums, 259);
-        System.out.println(ret);
     }
 
 }
