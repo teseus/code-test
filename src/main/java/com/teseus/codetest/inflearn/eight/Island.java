@@ -31,7 +31,7 @@ public class Island {
         }
 
         private void dfs(int x, int y) {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < dx.length; i++) {
                 int nx = x + dx[i];
                 int ny = y + dy[i];
                 if(0<=nx && nx<length && 0<=ny && ny<length && board[nx][ny] == 1){
