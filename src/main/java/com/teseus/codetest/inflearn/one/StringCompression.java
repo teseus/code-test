@@ -5,24 +5,23 @@ import org.junit.Test;
 
 import java.util.Scanner;
 
-// without learning
+// after learning
 
 public class StringCompression {
     static class Solution {
         public String solution(String str) {
             int count = 1;
+            str += ' ';
             StringBuilder sb = new StringBuilder();
-            sb.append(str.charAt(0));
-            for (int i = 1; i < str.length(); i++) {
-                if(str.charAt(i-1) == str.charAt(i)) {
+            for (int i = 0; i < str.length()-1; i++) {
+                if(str.charAt(i) == str.charAt(i+1)) {
                     count++;
                 } else {
-                    if(count>1) sb.append(count);
                     sb.append(str.charAt(i));
+                    if(count>1) sb.append(count);
                     count = 1;
                 }
             }
-            if(count>1) sb.append(count);
             return sb.toString();
         }
     }
